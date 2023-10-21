@@ -10,6 +10,7 @@ public class Shape
 	public Shape(List<LineSegment> lineSegments)
 	{
 		this.lineSegments = lineSegments;
+		this.FindAllCorners();
 	}
 
 	public List<Vector2> FindAllCorners()

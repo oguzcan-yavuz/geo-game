@@ -17,9 +17,11 @@ public class ShapeTests
 		};
 
 		var shape = new Shape(square);
-		var length = shape.lineSegments.Count;
+		var lineSegmentsLength = shape.lineSegments.Count;
+		var cornerLength = shape.corners.Count;
 
-		Assert.AreEqual(4, length);
+		Assert.AreEqual(4, lineSegmentsLength);
+		Assert.AreEqual(4, cornerLength);
 	}
 
 	[Test]
@@ -57,21 +59,9 @@ public class ShapeTests
 	[Test]
 	public void ShouldFindAllCorners()
 	{
-		var square = new List<LineSegment>
-		{
-			new LineSegment(new Vector2(0, 0), new Vector2(0, 10)),
-			new LineSegment(new Vector2(0, 10), new Vector2(10, 10)),
-			new LineSegment(new Vector2(10, 10), new Vector2(10, 0)),
-			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
-		};
-		var diamond = new List<LineSegment>
-		{
-			new LineSegment(new Vector2(0, 5), new Vector2(5, 10)),
-			new LineSegment(new Vector2(5, 10), new Vector2(10, 5)),
-			new LineSegment(new Vector2(10, 5), new Vector2(5, 0)),
-			new LineSegment(new Vector2(5, 0), new Vector2(0, 0))
-		};
-		var diamondInsideSquare = square.Concat(diamond).ToList();
+		var square = new Square(new Vector2(5, 5), 10);
+		var diamond = new Diamond(new Vector2(5, 5), 10);
+		var diamondInsideSquare = square.lineSegments.Concat(diamond.lineSegments).ToList();
 		var expectedCorners = new List<Vector2>
 		{
 			new Vector2(0, 0),
@@ -88,6 +78,6 @@ public class ShapeTests
 
 		var corners = shape.FindAllCorners();
 
-		CollectionAssert.AreEqual(expectedCorners, corners);
+		CollectionAssert.AreEquivalent(expectedCorners, corners);
 	}
 }
