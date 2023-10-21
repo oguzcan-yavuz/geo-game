@@ -28,12 +28,12 @@ public class Shape
 
 public class Square : Shape
 {
-	public Square(Vector2 center, int size) : base(GenerateEdges(center, size))
+	public Square(Vector2 center, float size) : base(GenerateEdges(center, size))
 	{
 
 	}
 
-	private static List<LineSegment> GenerateEdges(Vector2 center, int size)
+	private static List<LineSegment> GenerateEdges(Vector2 center, float size)
 	{
 		var edges = new List<LineSegment>
 		{
@@ -49,12 +49,12 @@ public class Square : Shape
 
 public class Diamond : Shape
 {
-	public Diamond(Vector2 center, int size) : base(GenerateEdges(center, size))
+	public Diamond(Vector2 center, float size) : base(GenerateEdges(center, size))
 	{
 
 	}
 
-	private static List<LineSegment> GenerateEdges(Vector2 center, int size)
+	private static List<LineSegment> GenerateEdges(Vector2 center, float size)
 	{
 		var edges = new List<LineSegment>
 		{
