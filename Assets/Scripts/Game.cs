@@ -13,16 +13,15 @@ public class Game : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		// TODO: this is getting the LineRenderer globally, under the assumption of there is only one of them. 
-		// Instead, we can first find the GameObject by tag, then we can retrieve the LineRenderer component attached to it.
 		LineRenderer lineRenderer = GetComponent<LineRenderer>();
-		lineRenderer.positionCount = level.shape.lineSegments.Count * 2;
+		lineRenderer.positionCount = level.shape.corners.Count;
+		lineRenderer.widthMultiplier = 0.2f;
+		lineRenderer.loop = true;
 
-		for (int i = 0; i < level.shape.lineSegments.Count; i++)
+		for (int i = 0; i < level.shape.corners.Count; i++)
 		{
-			var lineSegment = level.shape.lineSegments[i];
-			lineRenderer.SetPosition(i * 2, new Vector3(lineSegment.start.x, lineSegment.start.y, 0));
-			lineRenderer.SetPosition(i * 2 + 1, new Vector3(lineSegment.end.x, lineSegment.end.y, 0));
+			var corner = level.shape.corners[i];
+			lineRenderer.SetPosition(i, new Vector3(corner.x, corner.y, 0));
 		}
 	}
 }
