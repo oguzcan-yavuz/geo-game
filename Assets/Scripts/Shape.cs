@@ -55,7 +55,7 @@ public class Diamond : Shape
 
 	private static List<LineSegment> GenerateEdges(Vector2 center, int size)
 	{
-		var edges = new List<LineSegment>(4)
+		var edges = new List<LineSegment>
 		{
 			new LineSegment(new Vector2(center.x - (size / 2), center.y), new Vector2(center.x, center.y - (size / 2))),
 			new LineSegment(new Vector2(center.x, center.y - (size / 2)), new Vector2(center.x + (size / 2), center.y)),
