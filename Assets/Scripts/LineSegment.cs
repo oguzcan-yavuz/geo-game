@@ -23,6 +23,11 @@ public class LineSegment
 		return this.start == otherLineSegment.start && this.end == otherLineSegment.end;
 	}
 
+	public override int GetHashCode()
+	{
+		return $"{start},{end}".GetHashCode();
+	}
+
 	public override string ToString()
 	{
 		return $"({start}, {end})";
@@ -30,7 +35,9 @@ public class LineSegment
 
 	public float Distance()
 	{
-		var distance = Mathf.Sqrt(Mathf.Pow(this.start.x - this.end.x, 2) + Mathf.Pow(this.start.y - this.end.y, 2));
+		var xDiff = this.start.x - this.end.x;
+		var yDiff = this.start.y - this.end.y;
+		var distance = Mathf.Sqrt(Mathf.Pow(xDiff, 2) + Mathf.Pow(yDiff, 2));
 
 		return distance;
 	}
