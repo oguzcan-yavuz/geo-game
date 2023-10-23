@@ -7,8 +7,8 @@ public class Level
 	public Level()
 	{
 		// Level 1: diamond inside square
-		var square = new Square(new Vector2(5, 5), 10);
-		var diamond = new Diamond(new Vector2(5, 5), 10);
+		var square = new Square(new Vector2(0, 0), 8);
+		var diamond = new Diamond(new Vector2(0, 0), 8);
 
 		var shape = square + diamond;
 
