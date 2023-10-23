@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Linq;
 
 public class Level
 {
@@ -11,9 +10,7 @@ public class Level
 		var square = new Square(new Vector2(5, 5), 10);
 		var diamond = new Diamond(new Vector2(5, 5), 10);
 
-		var diamondInsideSquare = square.lineSegments.Concat(diamond.lineSegments).ToList();
-
-		var shape = new Shape(diamondInsideSquare);
+		var shape = square + diamond;
 
 		this.shape = shape;
 	}

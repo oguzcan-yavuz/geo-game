@@ -14,14 +14,13 @@ public class Game : MonoBehaviour
 	void Update()
 	{
 		LineRenderer lineRenderer = GetComponent<LineRenderer>();
-		lineRenderer.positionCount = level.shape.corners.Count;
+		lineRenderer.positionCount = level.shape.points.Count;
 		lineRenderer.widthMultiplier = 0.2f;
-		lineRenderer.loop = true;
 
-		for (int i = 0; i < level.shape.corners.Count; i++)
+		for (int i = 0; i < level.shape.points.Count; i++)
 		{
-			var corner = level.shape.corners[i];
-			lineRenderer.SetPosition(i, new Vector3(corner.x, corner.y, 0));
+			var point = level.shape.points[i];
+			lineRenderer.SetPosition(i, new Vector3(point.x, point.y, 0));
 		}
 	}
 }
