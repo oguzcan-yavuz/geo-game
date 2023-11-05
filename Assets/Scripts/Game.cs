@@ -4,20 +4,38 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
 	private Level level;
-	public GameObject linePrefab;
+
+	[Header("Line")]
+	[SerializeField] private GameObject linePrefab;
+
+	[Header("Dot")]
+	[SerializeField] private Transform dotCanvasPosition;
+	[SerializeField] private GameObject dotPrefab;
 
 
-	void Start()
+	private void Start()
 	{
 		this.level = new Level();
-		List<LineSegment> lineSegments = level.shape.lineSegments;
+		this.InitLines(level.shape.lineSegments);
+		this.InitDots(level.shape.corners);
+	}
 
+	private void InitLines(List<LineSegment> lineSegments)
+	{
 		for (var i = 0; i < lineSegments.Count; i++)
 		{
 			GameObject line = Instantiate(linePrefab, new Vector3(0, 0, 0), Quaternion.identity);
 			LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
 			lineRenderer.SetPosition(0, new Vector3(lineSegments[i].start.x, lineSegments[i].start.y, 0));
 			lineRenderer.SetPosition(1, new Vector3(lineSegments[i].end.x, lineSegments[i].end.y, 0));
+		}
+	}
+
+	private void InitDots(List<Vector2> corners)
+	{
+		for (var i = 0; i < corners.Count; i++)
+		{
+			Instantiate(dotPrefab, new Vector3(corners[i].x, corners[i].y, 0), Quaternion.identity, dotCanvasPosition);
 		}
 	}
 }
