@@ -51,15 +51,13 @@ public class Drawer : MonoBehaviour
 
 	private void StartDrawing()
 	{
-		if (this.end != null)
+		if (this.start == null)
+		{
+			this.start = updatedCurrentPosition;
+		}
+		else if (this.end != null)
 		{
 			this.start = this.end;
-		}
-		else
-		{
-			this.start = transform.position;
-			// TODO: this doesn't work because the start and the end is the same since they are both called inside the Update
-			// this.start = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		}
 		this.lineRenderer.SetPosition(0, (Vector3)this.start);
 		this.lineRenderer.SetPosition(1, this.updatedCurrentPosition);
