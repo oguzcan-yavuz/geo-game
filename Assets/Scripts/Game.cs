@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +13,12 @@ public class Game : MonoBehaviour
 	[SerializeField] private Transform dotCanvasPosition;
 	[SerializeField] private GameObject dotPrefab;
 
+	public Shape GameShape { get; private set; }
 
 	private void Start()
 	{
 		this.level = new Level();
+		this.GameShape = this.level.shape;
 		this.InitLines(level.shape.lineSegments);
 		this.InitDots(level.shape.corners);
 	}

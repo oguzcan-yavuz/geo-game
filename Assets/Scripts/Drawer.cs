@@ -28,8 +28,16 @@ public class Drawer : MonoBehaviour
 			start = dotPosition;
 			return;
 		}
-
 		this.end = dotPosition;
+
+		Shape shape = FindObjectOfType<Game>().GameShape;
+		var valid = shape.AddLineSegment(new LineSegment((Vector2)this.start, (Vector2)this.end));
+
+		if (!valid)
+		{
+			return;
+		}
+
 		AddLine();
 		this.start = dotPosition;
 	}
