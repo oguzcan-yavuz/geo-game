@@ -7,19 +7,26 @@ public class Dot : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (!Input.GetMouseButtonDown(0))
 		{
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
+			return;
+		}
 
-			if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Dots")))
-			{
-				if (hit.collider.gameObject == gameObject)
-				{
-					Vector3 dotPosition = hit.collider.transform.position;
-					dotClickEventManager.PublishDotClickedEvent(dotPosition);
-				}
-			}
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+
+		var hitting = Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Dots"));
+		if (!hitting)
+		{
+			return;
+		}
+
+		var hittingToDot = hit.collider.gameObject == gameObject;
+
+		if (hittingToDot)
+		{
+			Vector3 dotPosition = hit.collider.transform.position;
+			dotClickEventManager.PublishDotClickedEvent(dotPosition);
 		}
 	}
 }

@@ -43,6 +43,7 @@ public class Shape
 		return corners;
 	}
 
+	// TODO: remove points
 	public List<Vector2> FindAllPoints()
 	{
 		var points = new List<Vector2>(this.corners);

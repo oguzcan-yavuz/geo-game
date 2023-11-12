@@ -33,6 +33,7 @@ public class LineSegment
 		return $"({start}, {end})";
 	}
 
+	// TODO: remove unused methods
 	public float Distance()
 	{
 		var xDiff = this.start.x - this.end.x;
