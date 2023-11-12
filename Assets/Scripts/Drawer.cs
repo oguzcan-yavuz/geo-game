@@ -11,7 +11,7 @@ public class Drawer : MonoBehaviour
 	[SerializeField]
 	private DotClickEventManager dotClickEventManager;
 
-	void Start()
+	private void Start()
 	{
 		this.lineRenderer = GetComponent<LineRenderer>();
 		this.lineRenderer.positionCount = 2;
@@ -23,18 +23,18 @@ public class Drawer : MonoBehaviour
 
 	private void HandleDotClicked(Vector3 dotPosition)
 	{
-		Debug.Log("Inside the subscriber dot position:" + dotPosition);
 		if (start == null)
 		{
 			start = dotPosition;
+			return;
 		}
-		else
-		{
-			AddLine(dotPosition);
-		}
+
+		this.end = dotPosition;
+		AddLine();
+		this.start = dotPosition;
 	}
 
-	void Update()
+	private void Update()
 	{
 		this.updatedCurrentPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		this.updatedCurrentPosition.z = 0f;
@@ -53,15 +53,12 @@ public class Drawer : MonoBehaviour
 		this.lineRenderer.SetPosition(1, this.updatedCurrentPosition);
 	}
 
-	private void AddLine(Vector3 dotPosition)
+	private void AddLine()
 	{
-		this.end = dotPosition;
 
 		GameObject line = Instantiate(linePrefab, new Vector3(0, 0, 0), Quaternion.identity);
 		LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
 		lineRenderer.SetPosition(0, (Vector3)this.start);
 		lineRenderer.SetPosition(1, (Vector3)this.end);
-
-		this.start = dotPosition;
 	}
 }
