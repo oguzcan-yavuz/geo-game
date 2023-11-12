@@ -38,6 +38,29 @@ public class Shape
 
 		return corners;
 	}
+
+	public bool AddLineSegment(LineSegment lineSegment)
+	{
+		// TODO: instead of calculating this every time, can we keep an available corner dictionary and update it with every insert?
+		var exists = lineSegments.Any(s =>
+			(s.start == lineSegment.start && s.end == lineSegment.end) ||
+			(s.start == lineSegment.end && s.end == lineSegment.start));
+		if (exists)
+		{
+			return false;
+		}
+
+		var sameStartAndEnd = lineSegment.start == lineSegment.end;
+		if (sameStartAndEnd)
+		{
+			return false;
+		}
+
+		this.lineSegments.Add(lineSegment);
+		this.FindAllCorners();
+
+		return true;
+	}
 }
 
 public class Square : Shape

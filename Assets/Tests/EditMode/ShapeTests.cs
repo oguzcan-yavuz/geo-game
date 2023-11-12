@@ -138,4 +138,85 @@ public class ShapeTests
 		CollectionAssert.AreEqual(expectedLineSegments, shape.lineSegments);
 		CollectionAssert.AreEqual(expectedCorners, shape.corners);
 	}
+
+	[Test]
+	public void ShouldNotAddALineSegmentIfTheSameExists()
+	{
+		var square = new List<LineSegment>
+		{
+			new LineSegment(new Vector2(0, 0), new Vector2(0, 10)),
+			new LineSegment(new Vector2(0, 10), new Vector2(10, 10)),
+			new LineSegment(new Vector2(10, 10), new Vector2(10, 0)),
+			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
+		};
+		var newLineSegment = new LineSegment(new Vector2(10, 0), new Vector2(0, 0));
+
+		var shape = new Shape(square);
+		var added = shape.AddLineSegment(newLineSegment);
+
+		Assert.IsFalse(added);
+	}
+
+	[Test]
+	public void ShouldNotAddALineSegmentIfTheSameWithReverseDirectionExists()
+	{
+		var square = new List<LineSegment>
+		{
+			new LineSegment(new Vector2(0, 0), new Vector2(0, 10)),
+			new LineSegment(new Vector2(0, 10), new Vector2(10, 10)),
+			new LineSegment(new Vector2(10, 10), new Vector2(10, 0)),
+			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
+		};
+		var newLineSegment = new LineSegment(new Vector2(0, 0), new Vector2(10, 0));
+
+		var shape = new Shape(square);
+		var added = shape.AddLineSegment(newLineSegment);
+
+		Assert.IsFalse(added);
+	}
+
+	[Test]
+	public void ShouldNotAddALineSegmentIfTheStartAndEndPointsAreTheSame()
+	{
+		var square = new List<LineSegment>
+		{
+			new LineSegment(new Vector2(0, 0), new Vector2(0, 10)),
+			new LineSegment(new Vector2(0, 10), new Vector2(10, 10)),
+			new LineSegment(new Vector2(10, 10), new Vector2(10, 0)),
+			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
+		};
+		var newLineSegment = new LineSegment(new Vector2(0, 0), new Vector2(0, 0));
+
+		var shape = new Shape(square);
+		var added = shape.AddLineSegment(newLineSegment);
+
+		Assert.IsFalse(added);
+	}
+
+	[Test]
+	public void ShouldAddLineSegment()
+	{
+		var square = new List<LineSegment>
+		{
+			new LineSegment(new Vector2(0, 0), new Vector2(0, 10)),
+			new LineSegment(new Vector2(0, 10), new Vector2(10, 10)),
+			new LineSegment(new Vector2(10, 10), new Vector2(10, 0)),
+			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
+		};
+		var newLineSegment = new LineSegment(new Vector2(0, 0), new Vector2(10, 10));
+		var expectedLineSegments = new List<LineSegment>
+		{
+			new LineSegment(new Vector2(0, 0), new Vector2(0, 10)),
+			new LineSegment(new Vector2(0, 10), new Vector2(10, 10)),
+			new LineSegment(new Vector2(10, 10), new Vector2(10, 0)),
+			new LineSegment(new Vector2(10, 0), new Vector2(0, 0)),
+			new LineSegment(new Vector2(0, 0), new Vector2(10, 10))
+		};
+
+		var shape = new Shape(square);
+		var added = shape.AddLineSegment(newLineSegment);
+
+		Assert.IsTrue(added);
+		CollectionAssert.AreEqual(expectedLineSegments, shape.lineSegments);
+	}
 }
