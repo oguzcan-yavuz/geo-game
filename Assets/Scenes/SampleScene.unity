@@ -821,6 +821,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dot
       objectReference: {fileID: 0}
+    - target: {fileID: 7594248865043017135, guid: a781c93356523479680600d56d0ed68a, type: 3}
+      propertyPath: m_Radius
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

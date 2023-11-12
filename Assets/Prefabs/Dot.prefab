@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 1622794465967111306}
   - component: {fileID: 713228628164067205}
   - component: {fileID: 4120260957910955820}
-  m_Layer: 5
+  - component: {fileID: 7200615727893405024}
+  - component: {fileID: 7594248865043017135}
+  m_Layer: 6
   m_Name: Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,3 +78,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7200615727893405024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3079052655872675101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47bf34f34c3da4614b60b58590ff3fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &7594248865043017135
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3079052655872675101}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
