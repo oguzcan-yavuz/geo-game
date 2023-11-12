@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bf34f34c3da4614b60b58590ff3fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dotClickEventManager: {fileID: 0}
 --- !u!135 &7594248865043017135
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Dot : MonoBehaviour
 {
+	[SerializeField]
+	private DotClickEventManager dotClickEventManager;
+
 	private void Update()
 	{
 		if (Input.GetMouseButtonDown(0))
@@ -14,7 +17,7 @@ public class Dot : MonoBehaviour
 				if (hit.collider.gameObject == gameObject)
 				{
 					Vector3 dotPosition = hit.collider.transform.position;
-					Debug.Log("dot position" + dotPosition);
+					dotClickEventManager.PublishDotClickedEvent(dotPosition);
 				}
 			}
 		}

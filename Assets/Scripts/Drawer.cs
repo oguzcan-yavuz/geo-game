@@ -9,12 +9,22 @@ public class Drawer : MonoBehaviour
 	public GameObject linePrefab;
 	private Vector3 updatedCurrentPosition;
 
+	[SerializeField]
+	private DotClickEventManager dotClickEventManager;
+
 	void Start()
 	{
 		this.lineRenderer = GetComponent<LineRenderer>();
 		this.lineRenderer.positionCount = 2;
 		this.lineRenderer.startWidth = 0.10f;
 		this.lineRenderer.endWidth = 0.10f;
+
+		dotClickEventManager.dotClickedEvent.AddListener(HandleDotClicked);
+	}
+
+	private void HandleDotClicked(Vector3 dotPosition)
+	{
+		Debug.Log("Inside the subscriber dot position:" + dotPosition);
 	}
 
 	void Update()
