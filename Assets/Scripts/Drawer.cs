@@ -3,7 +3,6 @@ using UnityEngine;
 public class Drawer : MonoBehaviour
 {
 	private LineRenderer lineRenderer;
-	private bool? draw;
 	private Vector3? start;
 	private Vector3? end;
 	public GameObject linePrefab;
@@ -25,6 +24,14 @@ public class Drawer : MonoBehaviour
 	private void HandleDotClicked(Vector3 dotPosition)
 	{
 		Debug.Log("Inside the subscriber dot position:" + dotPosition);
+		if (start == null)
+		{
+			start = dotPosition;
+		}
+		else
+		{
+			AddLine(dotPosition);
+		}
 	}
 
 	void Update()
@@ -32,55 +39,29 @@ public class Drawer : MonoBehaviour
 		this.updatedCurrentPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		this.updatedCurrentPosition.z = 0f;
 
-		// TODO: refactor lol :D
-		if (Input.GetMouseButtonDown(0))
+		if (start == null)
 		{
-			if (draw == true)
-			{
-				draw = false;
-			}
-			else if (draw == false)
-			{
-				draw = true;
-			}
-			else
-			{
-				draw = true;
-			}
+			return;
 		}
 
-		if (draw == true)
-		{
-			StartDrawing();
-		}
-		else if (draw == false)
-		{
-			StopDrawing();
-		}
+		DrawCurrentLine();
 	}
 
-	private void StartDrawing()
+	private void DrawCurrentLine()
 	{
-		if (this.start == null)
-		{
-			this.start = updatedCurrentPosition;
-		}
-		else if (this.end != null)
-		{
-			this.start = this.end;
-		}
 		this.lineRenderer.SetPosition(0, (Vector3)this.start);
 		this.lineRenderer.SetPosition(1, this.updatedCurrentPosition);
 	}
 
-	private void StopDrawing()
+	private void AddLine(Vector3 dotPosition)
 	{
-		this.end = updatedCurrentPosition;
+		this.end = dotPosition;
 
 		GameObject line = Instantiate(linePrefab, new Vector3(0, 0, 0), Quaternion.identity);
 		LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
 		lineRenderer.SetPosition(0, (Vector3)this.start);
 		lineRenderer.SetPosition(1, (Vector3)this.end);
-		draw = true;
+
+		this.start = dotPosition;
 	}
 }
