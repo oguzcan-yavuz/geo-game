@@ -82,42 +82,6 @@ public class ShapeTests
 	}
 
 	[Test]
-	public void ShouldFindAllPointsOfSquare()
-	{
-		var square = new Square(new Vector2(5, 5), 10);
-		var expectedPoints = new List<Vector2>
-		{
-			new Vector2(0, 0),
-			new Vector2(0, 10),
-			new Vector2(10, 10),
-			new Vector2(10, 0),
-			new Vector2(0, 0),
-		};
-
-		var points = square.FindAllPoints();
-
-		CollectionAssert.AreEquivalent(expectedPoints, points);
-	}
-
-	[Test]
-	public void ShouldFindAllPointsOfDiamond()
-	{
-		var diamond = new Diamond(new Vector2(5, 5), 10);
-		var expectedPoints = new List<Vector2>
-		{
-			new Vector2(0, 5),
-			new Vector2(5, 10),
-			new Vector2(10, 5),
-			new Vector2(5, 0),
-			new Vector2(0, 5),
-		};
-
-		var points = diamond.FindAllPoints();
-
-		CollectionAssert.AreEquivalent(expectedPoints, points);
-	}
-
-	[Test]
 	public void ShouldOverloadWithCustomCornerAndPoints()
 	{
 		var square = new List<LineSegment>
@@ -134,20 +98,11 @@ public class ShapeTests
 			new Vector2(10, 10),
 			new Vector2(10, 0),
 		};
-		var points = new List<Vector2>
-		{
-			new Vector2(0, 0),
-			new Vector2(0, 10),
-			new Vector2(10, 10),
-			new Vector2(10, 0),
-			new Vector2(0, 0),
-		};
 
-		var shape = new Shape(square, corners, points);
+		var shape = new Shape(square, corners);
 
 		CollectionAssert.AreEqual(shape.lineSegments, square);
 		CollectionAssert.AreEqual(shape.corners, corners);
-		CollectionAssert.AreEqual(shape.points, points);
 	}
 
 	[Test]
@@ -177,24 +132,10 @@ public class ShapeTests
 			new Vector2(10, 5),
 			new Vector2(5, 10)
 		};
-		var expectedPoints = new List<Vector2>
-		{
-			new Vector2(0, 0),
-			new Vector2(10, 0),
-			new Vector2(10, 10),
-			new Vector2(0, 10),
-			new Vector2(0, 0),
-			new Vector2(0, 5),
-			new Vector2(5, 0),
-			new Vector2(10, 5),
-			new Vector2(5, 10),
-			new Vector2(0, 5),
-		};
 
 		var shape = square + diamond;
 
 		CollectionAssert.AreEqual(expectedLineSegments, shape.lineSegments);
 		CollectionAssert.AreEqual(expectedCorners, shape.corners);
-		CollectionAssert.AreEqual(expectedPoints, shape.points);
 	}
 }

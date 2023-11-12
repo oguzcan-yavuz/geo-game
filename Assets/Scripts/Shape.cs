@@ -6,29 +6,25 @@ public class Shape
 {
 	public List<LineSegment> lineSegments;
 	public List<Vector2> corners;
-	public List<Vector2> points;
 
 	public Shape(List<LineSegment> lineSegments)
 	{
 		this.lineSegments = lineSegments;
 		this.FindAllCorners();
-		this.FindAllPoints();
 	}
 
-	public Shape(List<LineSegment> lineSegments, List<Vector2> corners, List<Vector2> points)
+	public Shape(List<LineSegment> lineSegments, List<Vector2> corners)
 	{
 		this.lineSegments = lineSegments;
 		this.corners = corners;
-		this.points = points;
 	}
 
 	public static Shape operator +(Shape a, Shape b)
 	{
 		var lineSegments = a.lineSegments.Concat(b.lineSegments).ToList();
 		var corners = a.corners.Concat(b.corners).ToList();
-		var points = a.points.Concat(b.points).ToList();
 
-		return new Shape(lineSegments, corners, points);
+		return new Shape(lineSegments, corners);
 	}
 
 
@@ -41,16 +37,6 @@ public class Shape
 		this.corners = corners;
 
 		return corners;
-	}
-
-	// TODO: remove points
-	public List<Vector2> FindAllPoints()
-	{
-		var points = new List<Vector2>(this.corners);
-		points.Add(points[0]);
-		this.points = points;
-
-		return points;
 	}
 }
 
