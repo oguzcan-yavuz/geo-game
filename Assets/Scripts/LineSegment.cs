@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LineSegment
@@ -52,5 +53,31 @@ public class LineSegment
 		var isEqualDistance = this.distance == startToPoint.distance + pointToEnd.distance;
 
 		return isEqualDistance;
+	}
+
+	// TODO: add tests for this
+	public Vector2? FindIntersectionPoint(LineSegment lineSegment)
+	{
+		// Line1
+		float A1 = this.end.y - this.start.y;
+		float B1 = this.start.x - this.end.x;
+		float C1 = A1 * this.start.x + B1 * this.start.y;
+
+		// Line2
+		float A2 = lineSegment.end.y - lineSegment.start.y;
+		float B2 = lineSegment.start.x - lineSegment.end.x;
+		float C2 = A2 * lineSegment.start.x + B2 * lineSegment.start.y;
+
+		float delta = A1 * B2 - A2 * B1;
+
+		if (delta == 0)
+		{
+			return null;
+		}
+
+		float x = (B2 * C1 - B1 * C2) / delta;
+		float y = (A1 * C2 - A2 * C1) / delta;
+
+		return new Vector2(x, y);
 	}
 }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Shape
 {
@@ -47,6 +46,15 @@ public class Shape
 		{
 			return false;
 		}
+
+		// TODO: update the corner list and publish dot created event.
+		// TODO: rename corner as dot?
+		List<Vector2> intersectionPoints = lineSegments
+			.Select(ls => ls.FindIntersectionPoint(lineSegment))
+			.Where(point => point.HasValue && !this.corners.Contains((Vector2)point))
+			.Distinct()
+			.Select(point => point.Value)
+			.ToList();
 
 		this.lineSegments.Add(lineSegment);
 		this.FindAllCorners();
