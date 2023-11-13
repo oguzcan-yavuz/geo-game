@@ -55,29 +55,32 @@ public class LineSegment
 		return isEqualDistance;
 	}
 
-	// TODO: add tests for this
+	private float Lerp(float A, float B, float t)
+	{
+		return A + (B - A) * t;
+	}
+
 	public Vector2? FindIntersectionPoint(LineSegment lineSegment)
 	{
-		// Line1
-		float A1 = this.end.y - this.start.y;
-		float B1 = this.start.x - this.end.x;
-		float C1 = A1 * this.start.x + B1 * this.start.y;
+		// https://www.youtube.com/watch?v=fHOLQJo0FjQ
+		var tTop = (lineSegment.end.x - lineSegment.start.x) * (this.start.y - lineSegment.start.y) - (lineSegment.end.y - lineSegment.start.y) * (this.start.x - lineSegment.start.x);
+		var uTop = (lineSegment.start.y - this.start.y) * (this.start.x - this.end.x) - (lineSegment.start.x - this.start.x) * (this.start.y - this.end.y);
+		var bottom = (lineSegment.end.y - lineSegment.start.y) * (this.end.x - this.start.x) - (lineSegment.end.x - lineSegment.start.x) * (this.end.y - this.start.y);
 
-		// Line2
-		float A2 = lineSegment.end.y - lineSegment.start.y;
-		float B2 = lineSegment.start.x - lineSegment.end.x;
-		float C2 = A2 * lineSegment.start.x + B2 * lineSegment.start.y;
-
-		float delta = A1 * B2 - A2 * B1;
-
-		if (delta == 0)
+		if (bottom != 0)
 		{
-			return null;
+			var t = tTop / bottom;
+			var u = uTop / bottom;
+			if (t >= 0 && t <= 1 && u >= 0 && u <= 1)
+			{
+				var x = this.Lerp(this.start.x, this.end.x, t);
+				var y = this.Lerp(this.start.y, this.end.y, t);
+				var result = new Vector2(x, y);
+
+				return result;
+			}
 		}
 
-		float x = (B2 * C1 - B1 * C2) / delta;
-		float y = (A1 * C2 - A2 * C1) / delta;
-
-		return new Vector2(x, y);
+		return null;
 	}
 }
