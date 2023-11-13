@@ -69,4 +69,15 @@ public class LineSegmentTests
 
 		Assert.IsTrue(containingPoint);
 	}
+
+	[Test]
+	public void ShouldConsiderEqualWhenTheDistanceDifferenceIsVerySmall()
+	{
+		var lineSegment = new LineSegment(new Vector2(2.666667f, 1.333333f), new Vector2(-4, -4)); // distance: 8.537499
+		var point = new Vector2(-1.777778f, -2.222222f); // distance: 8.537498
+
+		var containingPoint = lineSegment.IsPointOnSegment(point);
+
+		Assert.IsTrue(containingPoint);
+	}
 }

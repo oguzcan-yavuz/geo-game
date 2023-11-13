@@ -45,12 +45,18 @@ public class LineSegment
 		return distance;
 	}
 
+	public static bool AlmostEqual(double double1, double double2, double precision)
+	{
+		return Math.Abs(double1 - double2) <= precision;
+	}
+
 	public bool IsPointOnSegment(Vector2 point)
 	{
 		var startToPoint = new LineSegment(start, point);
 		var pointToEnd = new LineSegment(point, end);
+		var totalDistance = startToPoint.distance + pointToEnd.distance;
 
-		var isEqualDistance = this.distance == startToPoint.distance + pointToEnd.distance;
+		var isEqualDistance = AlmostEqual(this.distance, totalDistance, 0.00001);
 
 		return isEqualDistance;
 	}
