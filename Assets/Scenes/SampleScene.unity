@@ -202,7 +202,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 2025756405
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &437978705
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000f596be7877c3596e
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -866,14 +866,6 @@ PrefabInstance:
     - target: {fileID: 1622794465967111306, guid: a781c93356523479680600d56d0ed68a, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1622794465967111306, guid: a781c93356523479680600d56d0ed68a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1622794465967111306, guid: a781c93356523479680600d56d0ed68a, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1622794465967111306, guid: a781c93356523479680600d56d0ed68a, type: 3}
       propertyPath: m_LocalPosition.x
