@@ -216,6 +216,51 @@ public class ShapeTests
 	}
 
 	[Test]
+	public void ShouldNotAddALineSegmentIfItIsAReverseAndSmallerLineSegmentOfAnExisting()
+	{
+		var diamondInsideSquare = new List<LineSegment>
+		{
+			new LineSegment(new Vector2(0, 0), new Vector2(10, 0)),
+			new LineSegment(new Vector2(10, 0), new Vector2(10, 10)),
+			new LineSegment(new Vector2(10, 10), new Vector2(0, 10)),
+			new LineSegment(new Vector2(0, 10), new Vector2(0, 0)),
+			new LineSegment(new Vector2(0, 5), new Vector2(5, 0)),
+			new LineSegment(new Vector2(5, 0), new Vector2(10, 5)),
+			new LineSegment(new Vector2(10, 5), new Vector2(5, 10)),
+			new LineSegment(new Vector2(5, 10), new Vector2(0, 5))
+		};
+		var shape = new Shape(diamondInsideSquare);
+		var newLineSegment = new LineSegment(new Vector2(0, 5), new Vector2(0, 0));
+
+		var added = shape.AddLineSegment(newLineSegment);
+
+		Assert.IsFalse(added);
+	}
+
+	[Test]
+	public void ShouldNotAddALineSegmentIfItIsAdSmallerLineSegmentWithIrregularAngle()
+	{
+		var diamondInsideSquare = new List<LineSegment>
+		{
+			new LineSegment(new Vector2(0, 0), new Vector2(10, 0)),
+			new LineSegment(new Vector2(10, 0), new Vector2(10, 10)),
+			new LineSegment(new Vector2(10, 10), new Vector2(0, 10)),
+			new LineSegment(new Vector2(0, 10), new Vector2(0, 0)),
+			new LineSegment(new Vector2(0, 5), new Vector2(5, 0)),
+			new LineSegment(new Vector2(5, 0), new Vector2(10, 5)),
+			new LineSegment(new Vector2(10, 5), new Vector2(5, 10)),
+			new LineSegment(new Vector2(5, 10), new Vector2(0, 5)),
+			new LineSegment(new Vector2(0, 0), new Vector2(10, 10)) // this should prevent the new line segment
+		};
+		var shape = new Shape(diamondInsideSquare);
+		var newLineSegment = new LineSegment(new Vector2(0, 0), new Vector2(5, 5));
+
+		var added = shape.AddLineSegment(newLineSegment);
+
+		Assert.IsFalse(added);
+	}
+
+	[Test]
 	public void ShouldAddLineSegment()
 	{
 		var square = new List<LineSegment>

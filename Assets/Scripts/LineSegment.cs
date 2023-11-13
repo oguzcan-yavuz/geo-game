@@ -4,11 +4,13 @@ public class LineSegment
 {
 	public Vector2 start;
 	public Vector2 end;
+	public float distance;
 
 	public LineSegment(Vector2 start, Vector2 end)
 	{
 		this.start = start;
 		this.end = end;
+		this.distance = this.Distance();
 	}
 
 	public override bool Equals(object other)
@@ -33,8 +35,7 @@ public class LineSegment
 		return $"({start}, {end})";
 	}
 
-	// TODO: remove unused methods
-	public float Distance()
+	private float Distance()
 	{
 		var xDiff = this.start.x - this.end.x;
 		var yDiff = this.start.y - this.end.y;
@@ -45,11 +46,10 @@ public class LineSegment
 
 	public bool IsPointOnSegment(Vector2 point)
 	{
-		var distance = this.Distance();
 		var startToPoint = new LineSegment(start, point);
 		var pointToEnd = new LineSegment(point, end);
 
-		var isEqualDistance = distance == startToPoint.Distance() + pointToEnd.Distance();
+		var isEqualDistance = this.distance == startToPoint.distance + pointToEnd.distance;
 
 		return isEqualDistance;
 	}

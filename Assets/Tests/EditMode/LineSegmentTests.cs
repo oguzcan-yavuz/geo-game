@@ -22,9 +22,8 @@ public class LineSegmentTests
 		var expectedDistance = 5;
 
 		var lineSegment = new LineSegment(start, end);
-		var distance = lineSegment.Distance();
 
-		Assert.AreEqual(expectedDistance, distance);
+		Assert.AreEqual(expectedDistance, lineSegment.distance);
 	}
 
 	[Test]

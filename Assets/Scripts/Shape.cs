@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Shape
 {
@@ -41,17 +42,8 @@ public class Shape
 
 	public bool AddLineSegment(LineSegment lineSegment)
 	{
-		// TODO: instead of calculating this every time, can we keep an available corner dictionary and update it with every insert?
-		var exists = lineSegments.Any(s =>
-			(s.start == lineSegment.start && s.end == lineSegment.end) ||
-			(s.start == lineSegment.end && s.end == lineSegment.start));
+		var exists = lineSegments.Any(ls => ls.IsPointOnSegment(lineSegment.start) && ls.IsPointOnSegment(lineSegment.end));
 		if (exists)
-		{
-			return false;
-		}
-
-		var sameStartAndEnd = lineSegment.start == lineSegment.end;
-		if (sameStartAndEnd)
 		{
 			return false;
 		}
