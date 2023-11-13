@@ -18,7 +18,7 @@ public class ShapeTests
 
 		var shape = new Shape(square);
 		var lineSegmentsLength = shape.lineSegments.Count;
-		var cornerLength = shape.corners.Count;
+		var cornerLength = shape.dots.Count;
 
 		Assert.AreEqual(4, lineSegmentsLength);
 		Assert.AreEqual(4, cornerLength);
@@ -82,7 +82,7 @@ public class ShapeTests
 	}
 
 	[Test]
-	public void ShouldOverloadWithCustomCornerAndPoints()
+	public void ShouldOverloadWithCustomDots()
 	{
 		var square = new List<LineSegment>
 		{
@@ -102,7 +102,7 @@ public class ShapeTests
 		var shape = new Shape(square, corners);
 
 		CollectionAssert.AreEqual(shape.lineSegments, square);
-		CollectionAssert.AreEqual(shape.corners, corners);
+		CollectionAssert.AreEqual(shape.dots, corners);
 	}
 
 	[Test]
@@ -136,7 +136,7 @@ public class ShapeTests
 		var shape = square + diamond;
 
 		CollectionAssert.AreEqual(expectedLineSegments, shape.lineSegments);
-		CollectionAssert.AreEqual(expectedCorners, shape.corners);
+		CollectionAssert.AreEqual(expectedCorners, shape.dots);
 	}
 
 	[Test]

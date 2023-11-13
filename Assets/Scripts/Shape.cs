@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shape
 {
 	public List<LineSegment> lineSegments;
-	public List<Vector2> corners;
+	public List<Vector2> dots;
 
 	public Shape(List<LineSegment> lineSegments)
 	{
@@ -16,13 +16,13 @@ public class Shape
 	public Shape(List<LineSegment> lineSegments, List<Vector2> corners)
 	{
 		this.lineSegments = lineSegments;
-		this.corners = corners;
+		this.dots = corners;
 	}
 
 	public static Shape operator +(Shape a, Shape b)
 	{
 		var lineSegments = a.lineSegments.Concat(b.lineSegments).ToList();
-		var corners = a.corners.Concat(b.corners).ToList();
+		var corners = a.dots.Concat(b.dots).ToList();
 
 		return new Shape(lineSegments, corners);
 	}
@@ -34,7 +34,7 @@ public class Shape
 			.SelectMany(lineSegment => new List<Vector2> { lineSegment.start, lineSegment.end })
 			.Distinct()
 			.ToList();
-		this.corners = corners;
+		this.dots = corners;
 
 		return corners;
 	}
@@ -48,10 +48,9 @@ public class Shape
 		}
 
 		// TODO: update the corner list and publish dot created event.
-		// TODO: rename corner as dot?
 		List<Vector2> intersectionPoints = lineSegments
 			.Select(ls => ls.FindIntersectionPoint(lineSegment))
-			.Where(point => point.HasValue && !this.corners.Contains((Vector2)point))
+			.Where(point => point.HasValue && !this.dots.Contains((Vector2)point))
 			.Distinct()
 			.Select(point => point.Value)
 			.ToList();

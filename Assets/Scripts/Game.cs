@@ -20,7 +20,7 @@ public class Game : MonoBehaviour
 		this.level = new Level();
 		this.GameShape = this.level.shape;
 		this.InitLines(level.shape.lineSegments);
-		this.InitDots(level.shape.corners);
+		this.InitDots(level.shape.dots);
 	}
 
 	private void InitLines(List<LineSegment> lineSegments)
