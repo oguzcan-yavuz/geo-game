@@ -29,8 +29,8 @@ public class Drawer : MonoBehaviour
 	{
 		this.lineRenderer = GetComponent<LineRenderer>();
 		this.lineRenderer.positionCount = 2;
-		this.lineRenderer.startWidth = 0.10f;
-		this.lineRenderer.endWidth = 0.10f;
+		this.lineRenderer.startWidth = 0.05f;
+		this.lineRenderer.endWidth = 0.05f;
 
 		dotClickEventManager.dotClickedEvent.AddListener(HandleDotClicked);
 		dotCreateEventManager.dotCreatedEvent.AddListener(HandleDotCreated);
