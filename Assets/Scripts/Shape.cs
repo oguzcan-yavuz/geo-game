@@ -10,45 +10,45 @@ public class Shape
 	public Shape(List<LineSegment> lineSegments)
 	{
 		this.lineSegments = lineSegments;
-		this.FindAllCorners();
+		this.FindAllDots();
 	}
 
-	public Shape(List<LineSegment> lineSegments, List<Vector2> corners)
+	public Shape(List<LineSegment> lineSegments, List<Vector2> dots)
 	{
 		this.lineSegments = lineSegments;
-		this.dots = corners;
+		this.dots = dots;
 	}
 
 	public static Shape operator +(Shape a, Shape b)
 	{
 		var lineSegments = a.lineSegments.Concat(b.lineSegments).ToList();
-		var corners = a.dots.Concat(b.dots).ToList();
+		var dots = a.dots.Concat(b.dots).ToList();
 
-		return new Shape(lineSegments, corners);
+		return new Shape(lineSegments, dots);
 	}
 
 
-	public List<Vector2> FindAllCorners()
+	public List<Vector2> FindAllDots()
 	{
-		var corners = this.lineSegments
+		var dots = this.lineSegments
 			.SelectMany(lineSegment => new List<Vector2> { lineSegment.start, lineSegment.end })
 			.Distinct()
 			.ToList();
-		this.dots = corners;
+		this.dots = dots;
 
-		return corners;
+		return dots;
 	}
 
-	public bool AddLineSegment(LineSegment lineSegment)
+	public bool AddLineSegment(LineSegment lineSegment, out List<Vector2> intersectionPoints)
 	{
 		var exists = lineSegments.Any(ls => ls.IsPointOnSegment(lineSegment.start) && ls.IsPointOnSegment(lineSegment.end));
 		if (exists)
 		{
+			intersectionPoints = null;
 			return false;
 		}
 
-		// TODO: update the corner list and publish dot created event.
-		List<Vector2> intersectionPoints = lineSegments
+		intersectionPoints = lineSegments
 			.Select(ls => ls.FindIntersectionPoint(lineSegment))
 			.Where(point => point.HasValue && !this.dots.Contains((Vector2)point))
 			.Distinct()
@@ -56,7 +56,7 @@ public class Shape
 			.ToList();
 
 		this.lineSegments.Add(lineSegment);
-		this.FindAllCorners();
+		this.dots = this.dots.Concat(intersectionPoints).ToList();
 
 		return true;
 	}

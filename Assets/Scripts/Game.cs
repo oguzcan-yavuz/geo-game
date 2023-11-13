@@ -34,11 +34,11 @@ public class Game : MonoBehaviour
 		}
 	}
 
-	private void InitDots(List<Vector2> corners)
+	private void InitDots(List<Vector2> dots)
 	{
-		for (var i = 0; i < corners.Count; i++)
+		for (var i = 0; i < dots.Count; i++)
 		{
-			Instantiate(dotPrefab, new Vector3(corners[i].x, corners[i].y, 0), Quaternion.identity, dotCanvasPosition);
+			Instantiate(dotPrefab, new Vector3(dots[i].x, dots[i].y, 0), Quaternion.identity, dotCanvasPosition);
 		}
 	}
 }

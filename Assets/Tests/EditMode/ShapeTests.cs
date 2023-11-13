@@ -18,10 +18,10 @@ public class ShapeTests
 
 		var shape = new Shape(square);
 		var lineSegmentsLength = shape.lineSegments.Count;
-		var cornerLength = shape.dots.Count;
+		var dotLength = shape.dots.Count;
 
 		Assert.AreEqual(4, lineSegmentsLength);
-		Assert.AreEqual(4, cornerLength);
+		Assert.AreEqual(4, dotLength);
 	}
 
 	[Test]
@@ -57,12 +57,12 @@ public class ShapeTests
 	}
 
 	[Test]
-	public void ShouldFindAllCorners()
+	public void ShouldFindAllDots()
 	{
 		var square = new Square(new Vector2(5, 5), 10);
 		var diamond = new Diamond(new Vector2(5, 5), 10);
 		var diamondInsideSquare = square.lineSegments.Concat(diamond.lineSegments).ToList();
-		var expectedCorners = new List<Vector2>
+		var expectedDots = new List<Vector2>
 		{
 			new Vector2(0, 0),
 			new Vector2(0, 10),
@@ -76,9 +76,9 @@ public class ShapeTests
 
 		var shape = new Shape(diamondInsideSquare);
 
-		var corners = shape.FindAllCorners();
+		var dots = shape.FindAllDots();
 
-		CollectionAssert.AreEquivalent(expectedCorners, corners);
+		CollectionAssert.AreEquivalent(expectedDots, dots);
 	}
 
 	[Test]
@@ -91,7 +91,7 @@ public class ShapeTests
 			new LineSegment(new Vector2(10, 10), new Vector2(10, 0)),
 			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
 		};
-		var corners = new List<Vector2>
+		var dots = new List<Vector2>
 		{
 			new Vector2(0, 0),
 			new Vector2(0, 10),
@@ -99,10 +99,10 @@ public class ShapeTests
 			new Vector2(10, 0),
 		};
 
-		var shape = new Shape(square, corners);
+		var shape = new Shape(square, dots);
 
 		CollectionAssert.AreEqual(shape.lineSegments, square);
-		CollectionAssert.AreEqual(shape.dots, corners);
+		CollectionAssert.AreEqual(shape.dots, dots);
 	}
 
 	[Test]
@@ -121,7 +121,7 @@ public class ShapeTests
 			new LineSegment(new Vector2(10, 5), new Vector2(5, 10)),
 			new LineSegment(new Vector2(5, 10), new Vector2(0, 5))
 		};
-		var expectedCorners = new List<Vector2>
+		var expectedDots = new List<Vector2>
 		{
 			new Vector2(0, 0),
 			new Vector2(10, 0),
@@ -136,7 +136,7 @@ public class ShapeTests
 		var shape = square + diamond;
 
 		CollectionAssert.AreEqual(expectedLineSegments, shape.lineSegments);
-		CollectionAssert.AreEqual(expectedCorners, shape.dots);
+		CollectionAssert.AreEqual(expectedDots, shape.dots);
 	}
 
 	[Test]
@@ -150,11 +150,13 @@ public class ShapeTests
 			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
 		};
 		var newLineSegment = new LineSegment(new Vector2(10, 0), new Vector2(0, 0));
+		List<Vector2> intersectionPoints;
 
 		var shape = new Shape(square);
-		var added = shape.AddLineSegment(newLineSegment);
+		var added = shape.AddLineSegment(newLineSegment, out intersectionPoints);
 
 		Assert.IsFalse(added);
+		Assert.IsNull(intersectionPoints);
 	}
 
 	[Test]
@@ -168,11 +170,13 @@ public class ShapeTests
 			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
 		};
 		var newLineSegment = new LineSegment(new Vector2(0, 0), new Vector2(10, 0));
+		List<Vector2> intersectionPoints;
 
 		var shape = new Shape(square);
-		var added = shape.AddLineSegment(newLineSegment);
+		var added = shape.AddLineSegment(newLineSegment, out intersectionPoints);
 
 		Assert.IsFalse(added);
+		Assert.IsNull(intersectionPoints);
 	}
 
 	[Test]
@@ -186,11 +190,13 @@ public class ShapeTests
 			new LineSegment(new Vector2(10, 0), new Vector2(0, 0))
 		};
 		var newLineSegment = new LineSegment(new Vector2(0, 0), new Vector2(0, 0));
+		List<Vector2> intersectionPoints;
 
 		var shape = new Shape(square);
-		var added = shape.AddLineSegment(newLineSegment);
+		var added = shape.AddLineSegment(newLineSegment, out intersectionPoints);
 
 		Assert.IsFalse(added);
+		Assert.IsNull(intersectionPoints);
 	}
 
 	[Test]
@@ -209,10 +215,12 @@ public class ShapeTests
 		};
 		var shape = new Shape(diamondInsideSquare);
 		var newLineSegment = new LineSegment(new Vector2(0, 0), new Vector2(0, 5));
+		List<Vector2> intersectionPoints;
 
-		var added = shape.AddLineSegment(newLineSegment);
+		var added = shape.AddLineSegment(newLineSegment, out intersectionPoints);
 
 		Assert.IsFalse(added);
+		Assert.IsNull(intersectionPoints);
 	}
 
 	[Test]
@@ -231,10 +239,12 @@ public class ShapeTests
 		};
 		var shape = new Shape(diamondInsideSquare);
 		var newLineSegment = new LineSegment(new Vector2(0, 5), new Vector2(0, 0));
+		List<Vector2> intersectionPoints;
 
-		var added = shape.AddLineSegment(newLineSegment);
+		var added = shape.AddLineSegment(newLineSegment, out intersectionPoints);
 
 		Assert.IsFalse(added);
+		Assert.IsNull(intersectionPoints);
 	}
 
 	[Test]
@@ -254,10 +264,12 @@ public class ShapeTests
 		};
 		var shape = new Shape(diamondInsideSquare);
 		var newLineSegment = new LineSegment(new Vector2(0, 0), new Vector2(5, 5));
+		List<Vector2> intersectionPoints;
 
-		var added = shape.AddLineSegment(newLineSegment);
+		var added = shape.AddLineSegment(newLineSegment, out intersectionPoints);
 
 		Assert.IsFalse(added);
+		Assert.IsNull(intersectionPoints);
 	}
 
 	[Test]
@@ -279,11 +291,13 @@ public class ShapeTests
 			new LineSegment(new Vector2(10, 0), new Vector2(0, 0)),
 			new LineSegment(new Vector2(0, 0), new Vector2(10, 10))
 		};
+		List<Vector2> intersectionPoints;
 
 		var shape = new Shape(square);
-		var added = shape.AddLineSegment(newLineSegment);
+		var added = shape.AddLineSegment(newLineSegment, out intersectionPoints);
 
 		Assert.IsTrue(added);
 		CollectionAssert.AreEqual(expectedLineSegments, shape.lineSegments);
+		Assert.NotNull(intersectionPoints);
 	}
 }
